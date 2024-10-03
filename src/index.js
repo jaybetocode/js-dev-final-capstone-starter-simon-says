@@ -61,7 +61,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
 
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
-
+startButton.addEventListener("click", startButtonHandler);
 /**
  * EVENT HANDLERS
  */
@@ -137,7 +137,14 @@ function padHandler(event) {
  *
  */
 function setLevel(level = 1) {
-  // TODO: Write your code here.
+    // TODO: Write your code here.
+  const validLevels = [1, 2, 3, 4];
+  if (validLevels.includes(level))
+  {
+    return level;
+  } else {
+    return 'Error: Invalid level parameter. Acceptable values are 1, 2, 3, or 4.';
+  }
 }
 
 /**
