@@ -60,7 +60,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
  */
 
 padContainer.addEventListener("click", padHandler);
-// TODO: Add an event listener `startButtonHandler()` to startButton.
+// TODO: Add an event listener `startButtonHandler()` to startButton.done
 startButton.addEventListener("click", startButtonHandler);
 /**
  * EVENT HANDLERS
@@ -79,35 +79,33 @@ startButton.addEventListener("click", startButtonHandler);
  *
  * 5. Call `playComputerTurn()` to start the game with the computer going first.
  *
- */
+ */  // TODO: Write your code here.done
+
 function startButtonHandler() {
-  // TODO: Write your code here.
+  setLevel();
+  let roundCount = 0;
+  roundCount += 1;
+  
+  const startButton = 
+  document.querySelector('.start-button');
+  startButton.classList.add('hidden');
+  
+  const statusElement = 
+  document.querySelector('.status');
+  statusElement.classList.remove('hidden');
+  
+  playComputerTurn();
 
   return { startButton, statusSpan };
 }
 
-/**
- * Called when one of the pads is clicked.
- *
- * 1. `const { color } = event.target.dataset;` extracts the value of `data-color`
- * attribute on the element that was clicked and stores it in the `color` variable
- *
- * 2. `if (!color) return;` exits the function if the `color` variable is falsy
- *
- * 3. Use the `.find()` method to retrieve the pad from the `pads` array and store it
- * in a variable called `pad`
- *
- * 4. Play the sound for the pad by calling `pad.sound.play()`
- *
- * 5. Call `checkPress(color)` to verify the player's selection
- *
- * 6. Return the `color` variable as the output
- */
+
 function padHandler(event) {
   const { color } = event.target.dataset;
   if (!color) return;
-
-  // TODO: Write your code here.
+  const pad = pads.find(padObject => padObject.color === color);
+  pad.sound.play();
+  checkPress(color);
   return color;
 }
 
@@ -137,15 +135,15 @@ function padHandler(event) {
  *
  */
 function setLevel(level = 1) {
-    // TODO: Write your code here.
-  const validLevels = [1, 2, 3, 4];
-  if (validLevels.includes(level))
-  {
-    return level;
-  } else {
-    return 'Error: Invalid level parameter. Acceptable values are 1, 2, 3, or 4.';
+    // TODO: Write your code here.done
+    switch (level) {
+      case 1: return 8;
+      case 2: return 14;
+      case 3: return 20;
+      case 4: return 31;
+      default: return 'Please enter level 1, 2, 3 or 4';
+    }
   }
-}
 
 /**
  * Returns a randomly selected item from a given array.
