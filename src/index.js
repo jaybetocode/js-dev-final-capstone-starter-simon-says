@@ -1,16 +1,13 @@
-/**
- * DOM SELECTORS
- */
-
+ //* DOM SELECTORS
+ 
  const startButton = document.querySelector(".js-start-button");
  // TODO: Add the missing query selectors.done:
  const statusSpan = document.querySelector(".js-status"); // Use querySelector() to get the status element
  const heading = document.querySelector(".js-heading"); // Use querySelector() to get the heading element
  const padContainer = document.querySelector(".js-pad-container"); // Use querySelector() to get the heading element
 
-/**
- * VARIABLES
- */
+ //* VARIABLES
+
 let computerSequence = []; // track the computer-generated sequence of pad presses
 let playerSequence = []; // track the player-generated sequence of pad presses
 let maxRoundCount = 0; // the max number of rounds, varies with the chosen level
@@ -30,6 +27,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
  * Audio file for the yellow pad: "../assets/simon-says-sound-4.mp3"
  *
  */
+  // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
 
  const pads = [
   {
@@ -52,7 +50,6 @@ let roundCount = 0; // track the number of rounds that have been played so far
     selector: document.querySelector(".js-pad-yellow"),
     sound: new Audio("../assets/simon-says-sound-4.mp3")
   },
-  // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
 ];
 
 /**
@@ -62,6 +59,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.done
 startButton.addEventListener("click", startButtonHandler);
+
 /**
  * EVENT HANDLERS
  */
@@ -82,23 +80,23 @@ startButton.addEventListener("click", startButtonHandler);
  */  // TODO: Write your code here.done
 
 function startButtonHandler() {
+  console.log("start button clicked");
   setLevel();
   let roundCount = 0;
   roundCount += 1;
   
-  const startButton = 
-  document.querySelector('.start-button');
   startButton.classList.add('hidden');
   
-  const statusElement = 
-  document.querySelector('.status');
-  statusElement.classList.remove('hidden');
+const statusElement = document.querySelector('.status');
+statusElement.classList.remove('hidden');
+console.log("Initializing computer's turn");
   
-  playComputerTurn();
+playComputerTurn();
 
-  return { startButton, statusSpan };
+  return { startButton, statusElement };
 }
 
+document.querySelector('.start-button').addEventListener('click', startButtonHandler);
 
 function padHandler(event) {
   const { color } = event.target.dataset;
@@ -137,14 +135,18 @@ function padHandler(event) {
 function setLevel(level = 1) {
     // TODO: Write your code here.done
     switch (level) {
-      case 1: return 8;
-      case 2: return 14;
-      case 3: return 20;
-      case 4: return 31;
-      default: return 'Please enter level 1, 2, 3 or 4';
+      case 1:
+        return 8;
+      case 2:
+        return 14;
+      case 3:
+        return 20;
+      case 4:
+        return 31;
+      default:
+        return 'Please enter a valid level (1, 2, 3 or 4)';
     }
   }
-
 /**
  * Returns a randomly selected item from a given array.
  *
@@ -161,17 +163,18 @@ function setLevel(level = 1) {
  * getRandomItem([1, 2, 3, 4]) //> returns 1
  */
 function getRandomItem(collection) {
-  // if (collection.length === 0) return null;
-  // const randomIndex = Math.floor(Math.random() * collection.length);
-  // return collection[randomIndex];
+  if (collection.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * collection.length);
+  return collection[randomIndex];
 }
 
 /**
  * Sets the status text of a given HTML element with a given a message
  */
 function setText(element, text) {
-  // TODO: Write your code here.
-  return element;
+  // TODO: Write your code here.done
+  const statusElement = document.querySelector(element);
+  statusElement.textContent = text;
 }
 
 /**
@@ -187,8 +190,20 @@ function setText(element, text) {
  * 4. After 500ms, remove the `"activated"` class from the pad
  */
 
+  // TODO: Write your code here.done
 function activatePad(color) {
-  // TODO: Write your code here.
+  const pad = pads.find(p => p.dataset.color === color);
+  
+  if (pad) {
+    pad.classList.add('activated');
+    
+    const sound = new Audio(`assets/${color}.mp3`);
+    sound.play();
+    
+    setTimeout(() => {
+      pad.classList.remove('activated');
+    }, 500);
+  }
 }
 
 /**
@@ -205,9 +220,15 @@ function activatePad(color) {
  * the next one after 1200ms (600ms after the first), the third one after 1800ms, and so on.
  */
 
-function activatePads(sequence) {
-  // TODO: Write your code here.
-}
+  // TODO: Write your code here.done
+  function activatePads(sequence, delay) {
+    sequence.forEach((pad, index) => {
+      setTimeout(() => {
+        activatePad(pad);
+      }, (index + 1) * delay);
+    });
+    activatePads(["red", "green", "blue", "yellow"], 600);
+  }
 
 /**
  * Allows the computer to play its turn.
@@ -232,11 +253,23 @@ function activatePads(sequence) {
  * to the current round (roundCount) multiplied by 600ms which is the duration for each pad in the
  * sequence.
  */
- function playComputerTurn() {
-  // TODO: Write your code here.
+ //function playComputerTurn() {
+  // TODO: Write your code here.done
+  function playComputerTurn(roundCount, maxRoundCount) {
+    padContainer.classList.add('unclickable');
+  
+    statusSpan.textContent = "The computer's turn...";
+  
+    heading.textContent = `Round ${roundCount} of ${maxRoundCount}`;
+  
+    computerSequence.push(getRandomColor());
+  
+    activatePads(computerSequence);
 
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
-}
+  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); //5
+  }
+  console.log("testing");
+  
 
 /**
  * Allows the player to play their turn.
