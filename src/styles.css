@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  color: yellow;
+  color: rgb(255, 174, 0);
   font-family: 'Rubik Microbe', sans-serif;
   display: flex;
   justify-content: center;
@@ -20,8 +20,8 @@ body {
 }
 
 main {
-  background-color: #000;
-  padding: 40px;
+  background-color: rgba(250, 128, 114, 0.523);
+  padding: 20px;
 }
 
 h1 {
@@ -56,13 +56,14 @@ h1 {
 
 .status {
   font-size: 22px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .pad-container {
   display: grid;
   grid-template-rows: 200px 200px;
   grid-template-columns: 200px 200px;
-  grid-gap: 5px;
+  grid-gap: 10px black;
   margin: 20px;
 }
 
@@ -74,13 +75,13 @@ h1 {
 .pad-red:hover,
 .pad-red:focus {
   background-color: #ff451a;
-  transform: rotate(-5deg);
+  transform: scale(1.1);
 }
 
 .pad-red:active,
 .pad-red.activated {
   background-color: #ff5c36;
-  transform: translateY(10px);
+  transform: translateY(10px) scale(1.1);
 }
 
 .pad-green {
@@ -91,13 +92,13 @@ h1 {
 .pad-green:hover,
 .pad-green:focus {
   background-color: #8cc218;
-  transform: rotate(5deg);
+  transform: scale(1.1);
 }
 
 .pad-green:active,
 .pad-green.activated {
   background-color: #a0ea00;
-  transform: translateY(10px);
+  transform: translateY(10px) scale(1.1);
 }
 
 .pad-yellow {
@@ -108,13 +109,13 @@ h1 {
 .pad-yellow:hover,
 .pad-yellow:focus {
   background-color: #ffb900;
-  transform: rotate(5deg);
+  transform: scale(1.1);
 }
 
 .pad-yellow:active,
 .pad-yellow.activated {
   background-color: #ffca3d;
-  transform: translateY(10px);
+  transform: translateY(10px) scale(1.1);
 }
 
 .pad-blue {
@@ -125,13 +126,13 @@ h1 {
 .pad-blue:hover,
 .pad-blue:focus {
   background-color: #139ddd;
-  transform: rotate(5deg);
+  transform: scale(1.1);
 }
 
 .pad-blue:active,
 .pad-blue.activated {
   background-color: #2bbcff;
-  transform: translateY(10px);
+  transform: translateY(10px) scale(1.1);
 }
 
 .hidden {
